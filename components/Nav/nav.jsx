@@ -14,7 +14,7 @@ export default function Nav() {
           <div className="font-bold font-orbit text-2xl text-foreground">
             Logo
           </div>
-          <div className="relative w-full h-full border text-content flex items-center justify-center">
+          <div className="min-[425px]:relative w-full h-full border text-content flex items-center justify-center">
             <div className="w-full h-full hidden max-sm:flex max-sm:items-center max-sm:justify-end">
               {/* <i class="bi bi-list text-2xl text-content-light"></i> */}
               {/* <Client_Component> */}
