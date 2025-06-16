@@ -1,9 +1,10 @@
-import { Geist, Geist_Mono, Orbitron } from "next/font/google";
+import { Geist, Geist_Mono, Orbitron, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Nav from "@/components/Nav/nav";
 import App_Context from "@/store/App_Context";
 import Client_Component from "@/components/Client_Component";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -11,6 +12,10 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
+  subsets: ["cyrillic-ext"],
 });
 const orbit = Orbitron({
   variable: "--font-orbit",
@@ -29,15 +34,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
       <body
-        className={`w-full h-full ${geistSans.variable} ${geistMono.variable} ${orbit.variable} antialiased bg-background-color`}
+        className={`w-full h-full ${geistSans.variable} ${geistMono.variable} ${orbit.variable} ${robotoMono.variable} antialiased bg-background-color`}
       >
-        <header className="w-full h-full flex items-center justify-center">
-          <Nav />
-        </header>
-        {children}
-        <App_Context>
-          <Client_Component />
-        </App_Context>
+        <GoogleOAuthProvider clientId={`${process.env.NEXT_GOOGLE_CLIENT_ID}`}>
+          <header className="w-full h-[70px] flex items-center justify-center">
+            <Nav />
+          </header>
+          {children}
+          <App_Context>
+            <Client_Component />
+          </App_Context>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );
