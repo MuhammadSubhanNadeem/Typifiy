@@ -5,6 +5,7 @@ import Nav from "@/components/Nav/nav";
 import App_Context from "@/store/App_Context";
 import Client_Component from "@/components/Client_Component";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Toaster } from "@/components/ui/sonner";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -34,13 +35,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
       <body
-        className={`w-full h-full ${geistSans.variable} ${geistMono.variable} ${orbit.variable} ${robotoMono.variable} antialiased bg-background-color`}
+        className={`relative w-full h-full ${geistSans.variable} ${geistMono.variable} ${orbit.variable} ${robotoMono.variable} antialiased bg-background-color`}
       >
         <GoogleOAuthProvider clientId={`${process.env.NEXT_GOOGLE_CLIENT_ID}`}>
           <header className="w-full h-[70px] flex items-center justify-center">
             <Nav />
           </header>
           {children}
+          <Toaster />
           <App_Context>
             <Client_Component />
           </App_Context>

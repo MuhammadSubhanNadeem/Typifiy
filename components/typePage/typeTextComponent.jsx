@@ -1,151 +1,3 @@
-// "use client";
-
-// import { useAppContext } from "@/store/App_Context";
-// import { useEffect, useRef, useState } from "react";
-// import { motion, AnimatePresence } from "motion/react";
-
-// export default function TypeTextComponent() {
-//   const appStore = useAppContext();
-//   let [words, setWords] = useState([]);
-//   let [isFocused, setIsFocused] = useState(false);
-//   let [pressedKey, setPressedKey] = useState("");
-//   let [activeWord, setActiveWord] = useState(0);
-//   let [activeLetter, setActiveLetter] = useState(0);
-//   let lettersRef = useRef([]);
-//   useEffect(() => {
-//     setWords(appStore?.uiStates?.textFilterStates?.paragraph.split(" "));
-//   }, [appStore?.uiStates?.textFilterStates?.paragraph]);
-//   useEffect(() => {
-//     console.log(activeWord, activeLetter);
-//     // if (isFocused) {
-//     //   if (
-//     //     lettersRef.current[activeWord] &&
-//     //     lettersRef.current[activeWord][activeLetter]
-//     //   ) {
-//     //     lettersRef.current[activeWord][activeLetter].focus();
-//     //   }
-//     // }
-//   }, [activeWord, activeLetter]);
-//   const lettersRefSetter = (ref, wordIdx, letterIdx) => {
-//     if (ref) {
-//       if (!lettersRef.current[wordIdx]) {
-//         lettersRef.current[wordIdx] = [];
-//       }
-//       lettersRef.current[wordIdx][letterIdx] = ref;
-//     }
-//   };
-//   function keypressFunction(defs) {
-//     console.log(defs.key);
-//     // if (isFocused) {
-//     //   if (defs.key == letter) {
-//     //     defs.currentTarget.style.color = "white";
-//     //   } else {
-//     //     defs.currentTarget.style.color = "red";
-//     //   }
-//     // }
-//     if (defs.key === "Backspace") {
-//       if (activeLetter > 0) {
-//         setActiveLetter(activeLetter - 1);
-//       } else if (activeWord > 0) {
-//         setActiveWord(activeWord - 1);
-//         setActiveLetter(lettersRef.current[activeWord - 1].length - 1);
-//       }
-//       return;
-//     }
-
-//     if (defs.key === "Enter") {
-//       setActiveWord(activeWord + 1);
-//       setActiveLetter(0);
-//       return;
-//     }
-//     if (defs.key === " ") {
-//       setActiveWord(activeWord + 1);
-//       setActiveLetter(0);
-//       return;
-//     }
-//     const letterRef = lettersRef.current[activeWord]?.[activeLetter];
-//     if (!letterRef) return;
-
-//     if (defs.key === letterRef.textContent) {
-//       letterRef.style.color = "white";
-//     } else {
-//       letterRef.style.color = "red";
-//     }
-//     if (!(activeLetter >= words[activeWord]?.length - 1)) {
-//       setActiveLetter(activeLetter + 1);
-//     } else {
-//       setActiveWord(activeWord + 1);
-//       setActiveLetter(0);
-//     }
-//     setPressedKey(defs.key);
-//     return;
-//   }
-//   useEffect(() => {
-//     console.log(lettersRef);
-
-//     if (isFocused) {
-//       window.addEventListener("keypress", keypressFunction);
-//     }
-//     return () => {
-//       window.removeEventListener("keypress", keypressFunction);
-//     };
-//   }, [isFocused]);
-
-//   return (
-//     <div className="w-full h-fit max-h-[320px] border font-sans mt-[75px] flex flex-col items-center justify-center px-[35px] py-[15px]">
-//       <div className="w-full h-fit font-orbit font-normal text-3xl text-balance mb-2">
-//         15
-//       </div>
-//       <div
-//         tabIndex={0}
-//         onFocus={() => {
-//           setIsFocused(true);
-//         }}
-//         onBlur={() => {
-//           setIsFocused(false);
-//         }}
-//         className="relative w-full h-full flex flex-wrap items-center font-roboto font-normal text-3xl leading-14 text-balance break-words text-content-light select-none outline-none"
-//       >
-//         {words.map((eachWords, wordIdx) => {
-//           return (
-//             <div key={wordIdx} className="mx-1.5">
-//               {eachWords.split("").map((eachLetter, letterIdx) => {
-//                 return (
-//                   <span
-//                     tabIndex={0}
-//                     key={letterIdx}
-//                     ref={(ref) => lettersRefSetter(ref, wordIdx, letterIdx)}
-//                     onKeyDown={(defs) => {
-//                       keypressFunction(defs);
-//                     }}
-//                     className={`relative lowercase outline-none`}
-//                     // className={`relative lowercase outline-none ${
-//                     //   pressedKey === eachLetter
-//                     //     ? "text-content"
-//                     //     : "text-red-500"
-//                     // }`}
-//                   >
-//                     <AnimatePresence mode="wait">
-//                       <motion.div
-//                         initial={{ opacity: 1 }}
-//                         exit={{ opacity: 0 }}
-//                         transition={{ duration: 0.5, ease: "linear" }}
-//                         className={`absolute top-[50%] left-0 -translate-y-[50%] w-[3px] h-[36px] bg-content rounded-[50px] ${
-//                           isFocused ? "inline-block" : "hidden"
-//                         } animate-blink`}
-//                       ></motion.div>
-//                     </AnimatePresence>
-//                     {eachLetter}
-//                   </span>
-//                 );
-//               })}
-//             </div>
-//           );
-//         })}
-//       </div>
-//     </div>
-//   );
-// }
 "use client";
 
 import { useAppContext } from "@/store/App_Context";
@@ -155,6 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function TypeTextComponent() {
   const appStore = useAppContext();
 
+  const [timer, setTimer] = useState(15);
+  const [WPS, setWPS] = useState(0);
+  const [writeStatus, setWriteStatus] = useState(false);
   const [words, setWords] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
   const [activeWord, setActiveWord] = useState(0);
@@ -169,12 +24,42 @@ export default function TypeTextComponent() {
     console.log(wrongTyped);
   }, [typedLetters, wrongTyped]);
   useEffect(() => {
+    setTimer(appStore?.uiStates?.textFilterStates?.textTime);
+  }, [appStore?.uiStates?.textFilterStates?.textTime]);
+  useEffect(() => {
+    console.log("WPS: ", WPS);
+  }, [WPS]);
+  function startTimer() {
+    if (writeStatus) {
+      let timerInterval = setInterval(() => {
+        setTimer((prev) => {
+          if (prev > 0) {
+            return prev - 1;
+          }
+          setWPS(
+            () =>
+              (typedLetters.length /
+                (appStore?.uiStates?.textFilterStates?.textTime - timer)) *
+              60
+          );
+          clearInterval(timerInterval);
+          return 0;
+        });
+      }, 1000);
+      return () => {
+        clearInterval(timerInterval);
+      };
+    }
+  }
+  useEffect(() => {
+    startTimer();
+  }, [writeStatus]);
+  useEffect(() => {
     let result = [];
     letterStatus.forEach((eachWord) => {
       if (eachWord.every((each) => each !== null && each === "correct")) {
         result.push("correct");
-      }
-      else if (!eachWord.includes(null) && eachWord.includes("wrong")) {
+      } else if (!eachWord.includes(null) && eachWord.includes("wrong")) {
         result.push("wrong");
       }
     });
@@ -242,6 +127,7 @@ export default function TypeTextComponent() {
     }
 
     if (key.length === 1 && activeLetter < word.length) {
+      setWriteStatus(true);
       const correct = key === currentLetter ? "correct" : "wrong";
       updateLetterStatus(activeWord, activeLetter, correct);
       setActiveLetter((prev) => prev + 1);
@@ -259,7 +145,7 @@ export default function TypeTextComponent() {
 
   return (
     <div className="w-full max-h-[320px] border font-sans mt-[75px] flex flex-col items-center justify-center px-[35px] py-[15px]">
-      <div className="text-3xl font-orbit mb-2">15</div>
+      <div className="text-3xl font-orbit mb-2">{timer} s</div>
 
       <div
         tabIndex={0}

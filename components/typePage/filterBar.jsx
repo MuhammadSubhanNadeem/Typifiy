@@ -118,13 +118,18 @@ export default function FilterBar() {
                 transition={{ ease: "easeIn", duration: 0.3 }}
                 className="w-full h-full flex items-center justify-between gap-[15px] flex-nowrap"
               >
-                {["15 s", "30 s", "45 s", "60 s"].map((label) => (
+                {[15, 30, 45, 60].map((label) => (
                   <button
                     key={label}
                     type="button"
+                    onClick={() => {
+                      appStore?.uiStates?.textFilterStates?.setTextTime(label);
+                      console.log(label);
+                      
+                    }}
                     className="h-[80%] text-[14px] font-extralight flex items-center justify-center gap-1 text-content-light cursor-pointer px-2 hover:text-content transition-all duration-150"
                   >
-                    {label}
+                    {label} s
                   </button>
                 ))}
               </motion.div>

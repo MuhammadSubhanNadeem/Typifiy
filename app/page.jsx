@@ -1,4 +1,5 @@
 import Client_Component from "@/components/Client_Component";
+import BottomBar from "@/components/typePage/bottomBar";
 import FilterBar from "@/components/typePage/filterBar";
 import TypeTextComponent from "@/components/typePage/typeTextComponent";
 
@@ -9,6 +10,7 @@ export default function Root() {
         <Client_Component>
           <FilterBar />
           <TypeTextComponent />
+          <BottomBar />
         </Client_Component>
       </div>
     </div>

@@ -9,7 +9,6 @@ export default function App_Context({ children }) {
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius error, repellat saepe iure ipsum ex, velit consectetur asperiores cupiditate sed totam repellendus fugiat impedit cumque distinctio rem nulla beatae explicabo."
   );
   let [textTime, setTextTime] = useState(15);
-  // let [timeShow, setTimeShow] = useState(true);
   let [account, setAccount] = useState({
     userName: "",
     userEmail: "",

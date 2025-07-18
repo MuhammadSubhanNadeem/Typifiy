@@ -1,14 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function LoginPasswordInput() {
   let [isShow, setIsShow] = useState(false);
   let submitButtonStyleContainer = useRef(null);
-  useEffect(() => {
-    console.log(isShow);
-  }, [isShow]);
-
   return (
     <>
       <div className="relative w-full max-w-[320px] h-[45px] flex items-center justify-center">
@@ -31,10 +27,6 @@ export default function LoginPasswordInput() {
       <button
         type="submit"
         onMouseMove={(defs) => {
-          console.log(
-            defs.nativeEvent.layerX / defs.currentTarget.clientWidth,
-            defs.nativeEvent.layerY / defs.currentTarget.clientHeight
-          );
           let x = defs.nativeEvent.layerX / defs.currentTarget.clientWidth;
           let y = defs.nativeEvent.layerY / defs.currentTarget.clientHeight;
           submitButtonStyleContainer.current.style.top = `${(y * 200) - 100}%`;
