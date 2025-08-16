@@ -15,8 +15,10 @@ datasource db {
 }
 model userAccountData {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  userName String @unique
-  email String @unique
+  firstName String
+  lastName String
+  userName String? @unique
+  email String
   password String
   googleId String?
   accountType String

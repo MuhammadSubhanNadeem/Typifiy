@@ -1,5 +1,6 @@
 import LoginDivider from "@/components/login/loginDivider";
 import LoginPasswordInput from "@/components/login/loginPasswordInput";
+import LoginWithGithub from "@/components/login/loginWithGithub";
 import LoginWithGoogle from "@/components/login/loginWithGoogle";
 import Link from "next/link";
 // import {GoogleLogin} from "@react-oauth/google"
@@ -11,8 +12,8 @@ export default function page() {
           Login to Your Account
         </h1>
         <p className="w-full h-fit text-content-light text-lg text-center font-light font-orbit mt-[15px]">
-          Sign in to your account and invite your friends to exciting
-          challenges—compete, <br /> have fun, and see who comes out on top!
+          Sign in to your account, invite friends to exciting challenges,
+          compete, <br /> have fun, and see who comes out on top!
         </p>
         <div className="w-full h-fit flex items-center justify-between border p-14 mt-[45px]">
           <div className="w-full h-fit flex">
@@ -27,13 +28,14 @@ export default function page() {
                 name="email"
                 placeholder="Enter Email"
               />
-              <LoginPasswordInput />
+              <LoginPasswordInput passwordName="password" passwordPlaceholder="Password" submitButtonText = "Login to Your Account"/>
             </form>
           </div>
           <LoginDivider />
           <div className="w-full h-full flex items-center justify-center border z-30">
-            <div className="border w-full max-w-[320px] h-full flex items-center justify-center">
+            <div className="border w-full max-w-[320px] h-full flex flex-col gap-5 items-center justify-center">
               <LoginWithGoogle />
+              <LoginWithGithub />
             </div>
           </div>
         </div>
