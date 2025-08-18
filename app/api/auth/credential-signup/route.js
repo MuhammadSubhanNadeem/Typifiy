@@ -1,17 +1,17 @@
 // app/api/test/route.js
 import prisma from "@/lib/prismaClient";
-import jwt from "jsonwebtoken";
-import { cookies } from "next/headers";
+import bcrypt from "bcrypt";
 export async function POST(request) {
-  const requestData = await request?.formData();
-  const firstName = requestData?.get("first_name");
-  const lastName = requestData?.get("last_name");
-  const email = requestData?.get("email");
-  const password = requestData?.get("password");
+  const requestData = await request?.json();
+  const firstName = requestData?.firstName;
+  const lastName = requestData?.lastName;
+  const email = requestData?.email;
+  const password = await bcrypt.hash(requestData?.password, 10);
+
   console.log(process.env.NODE_ENV);
   try {
     let checkUser = await prisma.userAccountData.findFirst({
-      where: { email },
+      where: { email, accountType: "credentials" },
     });
     console.log(checkUser);
     if (checkUser) {
@@ -24,17 +24,20 @@ export async function POST(request) {
       );
     }
     let newUser = await prisma.userAccountData.create({
-      data: { firstName, lastName, email, password, accountType: "credentials" },
+      data: {
+        firstName,
+        lastName,
+        email,
+        password,
+        accountType: "credentials",
+      },
     });
     return Response.json(
       { status: true, message: "Account Created Successfully", user: newUser },
-      { status: 200 }
+      { status: 201 }
     );
   } catch (error) {
     console.log(error);
-    return Response.json(
-      { status: true, message: error, user: null },
-      { status: 200 }
-    );
+    return Response.json({ status: false, message: error.message }, { status: 500 });
   }
 }

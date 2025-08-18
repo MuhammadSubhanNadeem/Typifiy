@@ -28,7 +28,7 @@ export async function POST(request) {
       return Response.json(
         {
           status: false,
-          message: "User Already Exists! Please Login",
+          message: "User Already Exist! Please Login",
         },
         { status: 409 }
       );

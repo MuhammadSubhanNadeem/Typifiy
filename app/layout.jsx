@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
               <Nav />
             </header>
             {children}
-            <Toaster />
+            <Toaster richColors position="top-right" offset={85} />
           </Client_Component>
         </SessionProviderComponent>
       </body>

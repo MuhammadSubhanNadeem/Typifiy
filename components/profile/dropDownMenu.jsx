@@ -11,10 +11,25 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { useEffect, useState } from "react";
 // import { useEffect } from "react";
 
 export default function DropDownMenuComponent() {
+  const [avatarFallback, setAvatarFallback] = useState("");
   const { data: session, status } = useSession(null);
+  useEffect(() => {
+    let fullName = `${session.user?.firstName} ${session.user?.lastName}`;
+    console.log(fullName);
+
+    setAvatarFallback(
+      fullName
+        .split(" ")
+        .filter(Boolean)
+        .slice(0, 3)
+        .map((word) => word[0])
+        .join("")
+    );
+  }, [avatarFallback]);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -27,12 +42,12 @@ export default function DropDownMenuComponent() {
         <DropdownMenuLabel className="my-1">
           <div className="w-full h-full flex items-center justify-start gap-3">
             <Avatar className="h-12 w-12">
-              <AvatarImage src={session.user.dp} alt="DP" />
-              <AvatarFallback>{}</AvatarFallback>
+              <AvatarImage src={session.user?.dp} alt="DP" />
+              <AvatarFallback>{avatarFallback}</AvatarFallback>
             </Avatar>
             <div className="flex flex-col leading-tight cursor-default">
               <span className="text-[16px] font-medium text-content">
-                {session.user.firstName} {session.user.lastName}
+                {session.user?.firstName} {session.user?.lastName}
               </span>
               <span className="text-[12px] text-content-light">
                 {session.user.email}
