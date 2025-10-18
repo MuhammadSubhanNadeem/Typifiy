@@ -1,8 +1,10 @@
 "use client";
+
+// import { useGoogleLogin } from "@react-oauth/google";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Loader from "../Loader";
-export default function LoginWithGoogle() {
+export default function LoginWithGithub() {
   let [loading, setLoading] = useState(false);
 
   return (
@@ -11,7 +13,7 @@ export default function LoginWithGoogle() {
       onClick={async () => {
         setLoading(true);
         document.cookie = "oauth_state=login; path=/;";
-        let res = await signIn("google", {
+        let res = await signIn("github", {
           callbackUrl: "/auth/callback",
         });
         setLoading(false);
@@ -23,8 +25,8 @@ export default function LoginWithGoogle() {
         <Loader className="w-fit h-fit" />
       ) : (
         <>
-          <i className="bi bi-google text-xl"></i>{" "}
-          <span className="font-roboto">Login with Google</span>
+          <i className="bi bi-github text-xl"></i>{" "}
+          <span className="font-roboto">Login with Github</span>
         </>
       )}
     </button>

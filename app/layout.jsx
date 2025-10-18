@@ -4,8 +4,9 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import Nav from "@/components/Nav/nav";
 import App_Context from "@/store/App_Context";
 import Client_Component from "@/components/Client_Component";
-import { GoogleOAuthProvider } from "@react-oauth/google";
+// import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "@/components/ui/sonner";
+import { SessionProviderComponent } from "@/components/provider/nextAuthSessionProvider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -37,16 +38,16 @@ export default function RootLayout({ children }) {
       <body
         className={`relative w-full h-full ${geistSans.variable} ${geistMono.variable} ${orbit.variable} ${robotoMono.variable} antialiased bg-background-color`}
       >
-        <GoogleOAuthProvider clientId={`${process.env.NEXT_GOOGLE_CLIENT_ID}`}>
-          <header className="w-full h-[70px] flex items-center justify-center">
-            <Nav />
-          </header>
-          {children}
-          <Toaster />
-          <App_Context>
-            <Client_Component />
-          </App_Context>
-        </GoogleOAuthProvider>
+        {/* <GoogleOAuthProvider clientId={`${process.env.NEXT_GOOGLE_CLIENT_ID}`}> */}
+        <SessionProviderComponent>
+          <Client_Component>
+            <header className="w-full h-[70px] flex items-center justify-center">
+              <Nav />
+            </header>
+            {children}
+            <Toaster richColors position="top-right" offset={85} />
+          </Client_Component>
+        </SessionProviderComponent>
       </body>
     </html>
   );
