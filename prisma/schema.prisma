@@ -25,6 +25,8 @@ model userAccountData {
   dp String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  @@unique([email, accountType])
 }
 model test {
   id String @id @default(auto()) @map("_id") @db.ObjectId

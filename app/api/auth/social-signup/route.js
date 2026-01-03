@@ -19,8 +19,10 @@ export async function POST(request) {
   try {
     let existingUser = await prisma.userAccountData.findUnique({
       where: {
-        email: requestData?.email,
-        accountType: requestData?.accountType,
+        email_accountType: {
+          email: requestData.email,
+          accountType: requestData.accountType,
+        },
       },
     });
 

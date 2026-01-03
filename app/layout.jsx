@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono, Orbitron, Roboto_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Nav from "@/components/Nav/nav";
@@ -7,21 +7,30 @@ import Client_Component from "@/components/Client_Component";
 // import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "@/components/ui/sonner";
 import { SessionProviderComponent } from "@/components/provider/nextAuthSessionProvider";
-const geistSans = Geist({
+
+
+const geistSans = localFont({
+  src: "../public/fonts/Geist-Regular.ttf",
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  weight: "400",
 });
-const geistMono = Geist_Mono({
+
+const geistMono = localFont({
+  src: "../public/fonts/GeistMono-Regular.ttf",
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: "400",
 });
-const robotoMono = Roboto_Mono({
-  variable: "--font-roboto-mono",
-  subsets: ["cyrillic-ext"],
-});
-const orbit = Orbitron({
+
+const orbit = localFont({
+  src: "../public/fonts/Orbitron-Regular.ttf",
   variable: "--font-orbit",
-  subsets: ["latin"],
+  weight: "400",
+});
+
+const robotoMono = localFont({
+  src: "../public/fonts/RobotoMono-Regular.ttf",
+  variable: "--font-roboto-mono",
+  weight: "400",
 });
 
 export const metadata = {

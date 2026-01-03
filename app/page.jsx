@@ -1,5 +1,6 @@
 import ToasterShow from "@/_helpers/toasterShow.helper";
 import Client_Component from "@/components/Client_Component";
+import TypingSpeedResultChart from "@/components/global/TypingSpeedResultChart";
 import Loader from "@/components/Loader";
 import { SessionProviderComponent } from "@/components/provider/nextAuthSessionProvider";
 import BottomBar from "@/components/typePage/bottomBar";
@@ -16,7 +17,8 @@ export default function Root() {
       <div className="w-full h-full flex items-center justify-center">
         <div className="w-full max-w-[1440px] h-full flex flex-col items-center justify-start">
           <FilterBar />
-          <TypeTextComponent />
+          <TypingSpeedResultChart />
+          {/* <TypeTextComponent /> */}
           <BottomBar />
         </div>
       </div>

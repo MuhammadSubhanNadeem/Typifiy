@@ -38,7 +38,7 @@ export default function App_Context({ children }) {
     apiCalls: {
       checkLogin: async () => {
         try {
-          let req = await fetch("/api/auth/login", {
+          let req = await fetch("/api/auth/login", { // wrong url I will set later
             method: "GET",
             headers: { "Content-Type": "application/json" },
             cache: "no-cache",
